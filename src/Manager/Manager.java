@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Manager {
-    public ArrayList<Manageable> sList = new ArrayList<>();
+    public ArrayList<Manageable> mList = new ArrayList<>();
 
     Scanner openFile(String filename) {
         File f = new File(filename);
@@ -22,11 +22,11 @@ public class Manager {
 
     public void readAll(String fileName, Factory fac) {
         Scanner scan = openFile(fileName);
-        Manageable manageable = null;
+        Manageable m = null;
         while (scan.hasNext()) {
-            manageable = fac.create();
-            manageable.read(scan);
-            sList.add(manageable);
+            m = fac.create();
+            m.read(scan);
+            mList.add(m);
         }
         scan.close();
     }

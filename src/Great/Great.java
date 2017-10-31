@@ -1,9 +1,11 @@
 package Great;
 
+import Manager.Manageable;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Great {
+class Great implements Manageable {
 
     String name;
     boolean gender;
@@ -11,7 +13,7 @@ class Great {
     int death;
     ArrayList<String> contents = new ArrayList<String>();
 
-    void read(Scanner in) {
+    public void read(Scanner in) {
         name = in.next();
         gender = in.next().equals("M");
         birth = in.nextInt();
@@ -27,15 +29,20 @@ class Great {
         }
     }
 
-    void print(){
+    public void print(){
         System.out.printf("\n%s [%s] %d~%d년\n", name, gender?"남":"녀", birth, death);
 
         for(String content : contents)
             System.out.println("    - "+content);
     }
 
+    @Override
+    public boolean compare(String kwd) {
+        return false;
+    }
 
-    int compare(String kwd){
+
+    int compareGreat(String kwd){
 
         if(kwd.equals(name))
             return 1;

@@ -30,14 +30,14 @@ public class StudentDemo extends Manager implements Factory {
     }
 
     Manageable find(String kwd) {
-        for (Manageable s : sList)
+        for (Manageable s : mList)
             if (s.compare(kwd))
                 return s;
         return null;
     }
 
     void printAll() {
-        for (Manageable s : sList)
+        for (Manageable s : mList)
             s.print();
     }
 
