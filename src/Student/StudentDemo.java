@@ -45,4 +45,9 @@ public class StudentDemo extends Manager implements Factory {
     public Student create() {
         return new Student();
     }
+
+    @Override
+    public Manageable create(Scanner scan) {
+        return new Student();
+    }
 }

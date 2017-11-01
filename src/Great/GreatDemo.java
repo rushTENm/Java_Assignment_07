@@ -11,7 +11,7 @@ public class GreatDemo extends Manager implements Factory {
     Scanner scan = null;
 
     public void run() {
-        readAll("great1.txt", this);
+        readAll("great-inherit.txt", this);
         printAll();
         search();
     }
@@ -36,18 +36,18 @@ public class GreatDemo extends Manager implements Factory {
             if (kwd.equals("y"))
                 break;
 
-            for (Manageable m : mList) {
-                Great g = (Great) m;
-                int flag = g.compareGreat(kwd);
-                switch (flag) {
-                    case 1:
-                        g.print();
-                        break;
-                    case 2:
-                        System.out.println(g.name);
-                        break;
-                    default:
-                        break;
+            compare(kwd);
+        }
+    }
+
+    private void compare(String kwd) {
+        for (Manageable m : mList) {
+            Great g = (Great) m;
+
+            if (g.compare(kwd)) {
+                g.printMatch(g.match(kwd), kwd);
+                if (g instanceof FamousGreat) {
+                    System.out.printf("%30s \n", "++"+((FamousGreat) g).movie);
                 }
             }
         }
@@ -56,6 +56,15 @@ public class GreatDemo extends Manager implements Factory {
     @Override
     public Great create() {
         return new Great();
+    }
+
+    @Override
+    public Manageable create(Scanner scan) {
+        String name = scan.next();
+        if (name.equals("m"))
+            return new FamousGreat(scan.next());
+        else
+            return new Great(name);
     }
 }
 

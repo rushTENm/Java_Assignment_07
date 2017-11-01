@@ -24,7 +24,7 @@ public class Manager {
         Scanner scan = openFile(fileName);
         Manageable m = null;
         while (scan.hasNext()) {
-            m = fac.create();
+            m = fac.create(scan);
             m.read(scan);
             mList.add(m);
         }
