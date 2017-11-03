@@ -1,6 +1,0 @@
-1 lee 3 m
-2 kim 4 m
-3 cho 3 f
-4 park 2 m
-5 kang 3 f
-6 choi 2 m
