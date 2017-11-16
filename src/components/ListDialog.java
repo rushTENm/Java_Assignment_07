@@ -58,7 +58,7 @@ import java.awt.event.*;
 public class ListDialog extends JDialog
                         implements ActionListener {
     private static ListDialog dialog;
-    private static String value = "";
+    private static ColorEnum value;
     private JList list;
 
     /**
@@ -70,13 +70,13 @@ public class ListDialog extends JDialog
      * otherwise, it should be the component on top of which the
      * dialog should appear.
      */
-    public static String showDialog(Component frameComp,
-                                    Component locationComp,
-                                    String labelText,
-                                    String title,
-                                    String[] possibleValues,
-                                    String initialValue,
-                                    String longValue) {
+    public static ColorEnum showDialog(Component frameComp,
+                                       Component locationComp,
+                                       String labelText,
+                                       String title,
+                                       ColorEnum[] possibleValues,
+                                       ColorEnum initialValue,
+                                       String longValue) {
         Frame frame = JOptionPane.getFrameForComponent(frameComp);
         dialog = new ListDialog(frame,
                                 locationComp,
@@ -89,7 +89,7 @@ public class ListDialog extends JDialog
         return value;
     }
 
-    private void setValue(String newValue) {
+    private void setValue(ColorEnum newValue) {
         value = newValue;
         list.setSelectedValue(value, true);
     }
@@ -99,7 +99,7 @@ public class ListDialog extends JDialog
                        String labelText,
                        String title,
                        Object[] data,
-                       String initialValue,
+                       ColorEnum initialValue,
                        String longValue) {
         super(frame, title, true);
 
@@ -196,7 +196,7 @@ public class ListDialog extends JDialog
     //Handle clicks on the Set and Cancel buttons.
     public void actionPerformed(ActionEvent e) {
         if ("Set".equals(e.getActionCommand())) {
-            ListDialog.value = (String)(list.getSelectedValue());
+            ListDialog.value = (ColorEnum)(list.getSelectedValue());
         }
         ListDialog.dialog.setVisible(false);
     }

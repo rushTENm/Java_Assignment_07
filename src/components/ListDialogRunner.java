@@ -34,55 +34,64 @@ package components;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * A 1.4 application that brings up a ListDialog.
  */
 public class ListDialogRunner {
     static JFrame frame;
-    static String[] names = {"Arlo", "Cosmo", "Elmo", "Hugo",
-                             "Jethro", "Laszlo", "Milo", "Nemo",
-                             "Otto", "Ringo", "Rocco", "Rollo"};
+    static ArrayList<ColorEnum> colorEnums = new ArrayList<>();
+    static ColorEnum[] colors = new ColorEnum[ColorEnum.values().length];
+    static {
+        for (ColorEnum colorEnum : ColorEnum.values())
+            colorEnums.add(colorEnum);
+        colorEnums.toArray(colors);
+    }
 
     public static JPanel createUI() {
+        JPanel panel = new JPanel();
+
         //Create the labels.
-        JLabel intro = new JLabel("The chosen name:");
-        final JLabel name = new JLabel(names[1]);
-        intro.setLabelFor(name);
+        JLabel intro = new JLabel("The chosen Color:");
+        final JLabel colorName = new JLabel("PLEASE!");
+        intro.setLabelFor(colorName);
 
         //Use a wacky font if it exists. If not, this falls
         //back to a font we know exists.
-        name.setFont(getAFont());
+        colorName.setFont(getAFont());
 
         //Create the button.
-        final JButton button = new JButton("Pick a new name...");
+        final ColorEnum[] temp = {colors[0]};
+        final JButton button = new JButton("Pick a new Color...");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String selectedName = ListDialog.showDialog(
+                ColorEnum selectedColor = ListDialog.showDialog(
                                         frame,
                                         button,
-                                        "Baby names ending in O:",
-                                        "Name Chooser",
-                                        names,
-                                        name.getText(),
+                                        "Predefined Colors",
+                                        "Color Chooser",
+                                        colors,
+                                        temp[0],
                                         "Cosmo  ");
-                name.setText(selectedName);
+                colorName.setText(selectedColor.getName());
+                panel.setBackground(selectedColor.getColor());
+                temp[0] = selectedColor;
             }
         });
 
         //Create the panel we'll return and set up the layout.
-        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,
                                       BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(20,20,10,20));
         intro.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        name.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        colorName.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         button.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
         //Add the labels to the content pane.
         panel.add(intro);
         panel.add(Box.createVerticalStrut(5)); //extra space
-        panel.add(name);
+        panel.add(colorName);
 
         //Add a vertical spacer that also guarantees us a minimum width:
         panel.add(Box.createRigidArea(new Dimension(150,10)));
@@ -166,7 +175,7 @@ public class ListDialogRunner {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        frame = new JFrame("Name That Baby");
+        frame = new JFrame("Color this window");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
